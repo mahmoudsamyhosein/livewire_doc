@@ -1,0 +1,1527 @@
+<!doctype html>
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="ar">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>laravel | livewire شرح</title>
+	<link rel="shortcut icon" type="image/x-icon" href="doc/assets/images/icon-2.png" style="width:24px; height:24px;">
+	<link rel="stylesheet" href="doc/assets/css/documenter_style.css" media="all">
+	<link rel="stylesheet" href="doc/assets/bootstrap/css/bootstrap.min.css">
+</head>
+<body class="documenter-project-mp-price" dir="rtl" >
+	<style>
+		img {
+			margin-top: 75px;
+			margin-bottom: 75px;
+		}
+		.title {
+			background: #FB70A9;
+		}
+		span{
+			color: crimson;
+		}
+		pre {
+			margin-top: 20px;
+		}
+		pre {
+			margin-bottom: 20px;
+		}
+		pre {
+			display: block;
+			padding: 9.5px;
+			margin: 0 0 10px;
+			font-size: 13px;
+			word-break: break-all;
+			word-wrap: break-word;
+			background-color: #f5f5f5;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+		
+	</style>
+	<div id="documenter_sidebar">
+		<h4 class="title">livewire</h4>
+		<ul id="documenter_nav">
+			<li><a class="current" href="#introd">مقدمة</a></li>
+			<li><a href="#install">التنصيب</a></li>
+			<li><a href="#commands">الأوامر</a></li>
+			<li><a href="#components">المكونات</a></li>
+			<li><a href="#routes">المسارات</a></li>
+			<li><a href="#Property_binding">ربط الخواص</a></li>
+			<li><a href="#actions">الأفعال</a></li>
+			<li><a href="#Life_Cycle_Hook">دورة حياة الخطافات</a></li>
+			<li><a href="#Form_Validation">التحقق من الأستمارات</a></li>
+			<li><a href="#with_database">مع قواعد البيانات</a></li>
+			<li><a href="#pagination">ترقيم الصفحات</a></li>
+			<li><a href="#CRUD">CRUD</a></li>
+			<li><a href="#search">البحث</a></li>
+			<li><a href="#file_upload">رفع ملف</a></li>
+			<li><a href="#images_upload">رفع الصور</a></li>
+			<li><a href="#download_project">تحميل المشروع</a></li>
+		</ul>
+		<div id="documenter_copyright">
+			<a href="https://github.com/mahmoudsamyhosein/">By:MSHMK بواسطة محمود سامي حسين متولي </a>
+		</div>
+	</div>
+	<div id="documenter_content">
+		<section id="introd">
+			<div class="text-center">
+				<h1> بسم الله الرحمن الرحيم </h1>
+				<h1>
+					والصلاة والسلام علي أشرف المرسلين سيدنا محمد عليه أفضل الصلاة والسلام
+					<hr>
+					شرح (laravel-livewire) 
+				</h1>
+			</div>
+			<img src="doc/assets/images/laravel-livewire.png"  alt="laravel_livewire">
+		</section>
+		<section id="install">
+			<div class="text-center">
+			<h1 class="title text-center">التنصيب</h1>
+				<h1>لأنشاء مشروع جديد في لارافيل باستخدام الأمر</h1>
+				<pre>
+					composer create-project laravel/laravel laravel8livewire
+				</pre>
+				<h1>بعد ذلك توجة الي مجلد المشروع بأستخدام هذا الأمر</h1>
+				<pre>
+					cd laravel8livewire
+				</pre>
+				<h1>لتنصيب حزمة livewire أستخدام هذا الأمر</h1>
+				<pre>
+					composer require livewire/livewire
+				</pre>
+				<h1>
+					<span style="color: crimson;">layouts/app.blade.php</span>  
+					 بعد ذلك قم بأنشاء مجلد جديد بداخلة ملف بالأسم   
+					<hr>
+					 و قم بوضع هذا الكود	
+				</h1>
+				<pre>
+					&lt;!DOCTYPE html>
+					&lt;html lang="en">
+						&lt;head>
+						&lt;meta charset="UTF-8">
+						&lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+						&lt;meta http-equiv="X-UA-Compatible" content="ie=edge">
+						&lt;title>Livewire Project&lt;/title>
+						{{-- أمر أستدعاء ملفات css الخاصة ب livewire --}}
+						@livewireStyles
+					&lt;/head>
+					&lt;body>
+					{{-- لعمل rendring for classes or controllers حتي يمكن لك أستدعاء المتغيرات من المتحكمات --}}
+						{{$slot}}
+
+						{{-- أمر أستدعاء ملفات javascript الخاصة ب livewire --}}
+						@livewireScripts
+					&lt;/body>
+					&lt;/html>
+				</pre>
+
+			</div>
+		</section>
+		<section id="commands">
+			<div class="text-center">
+			<h1 class="title text-center">الأوامر</h1>
+			<pre>
+				//لأنشاء مشروع جديد في لارافيل
+				composer create-project laravel/laravel laravel8livewire
+				//تنصيب حزمة livewire 
+				composer require livewire/livewire
+				// لأنشاء مكون جديد بالأسم post أو تستطيع انشاءه بالأسم الذي تريد
+				php artisan make:livewire post 
+				//أنشاء مكون من النوع inline يكون بداخل محتوي blade
+				php artisan make:livewire post --inline
+				//لتشغيل التطبيق في المتصفح الخاص بك
+				Php artisan serve
+				//لتهجير قاعدة البيانات 
+				php artisan migrate
+				//لأنشاء نموذج وملف تهجير لقاعدة البيانات 
+				php artisan make:model Post -m 
+				//لعمل بذر لقاعدة البيانات
+				php artisan db:seed
+			</pre>
+			</div>
+		</section>
+		<section id="components">
+			<div class="text-center">
+			<h1 class="title text-center">المكونات</h1>
+				<H4>لانشاء مكون جديد  يتم أستخدام الأمر التالي </H4>
+				<pre>php artisan make:livewire Post</pre>
+				<h6>
+					عند أنشاء المكون الجديد يحتوي علي ملفين 
+					(class الأول )الصنف 
+					(view) والثاني ملف العرض 
+				</h6>
+				<h4>الأن توجة الي ملف<span>Resources\views\livewire\post.blade.php</span></h4>
+				<h4>: وضع بداخله الكود التالي مثلا</h4> 
+				<h1><pre>&lt;h1>بسم الله الرحمن الرحيم&lt;/h1></pre>
+				<h4>بعد ذلك توجة الي  مجلد routes<span>Web.php</span> وافتح الملف </h4>
+				<h4>وقم بأضافة مسار الرابط هكذا</h4>
+				<pre>
+					Route::get(‘/post’,Post::class);
+					//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+					use App\Http\Livewire\Post;
+				</pre>
+				<h1>مكون من نوع inline </h1>
+				<h4>لانشاء مكون من نوع inline يكون بداخلة ملف العرض </h4>
+				<pre>php artisan make:livewire User --inline</pre>
+				<h4> وضع بداخله الكود التالي مثلا : </h4>
+				<h1><pre>&lt;h1>بسم الله الرحمن الرحيم&lt;/h1></pre>
+				<pre>
+					Route::get('/user',User::class);
+					//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+					use App\Http\Livewire\User;
+				</pre>
+				<h4>أهم خطوة هي التأكد من تضمين ملفات css و javascript في ملف  التطبيق الرئيسي</h4>
+				<h4>هكذا </h4>
+				<pre>
+					//الأول css في وسم ال head
+					@livewireStyles
+					//الثاني javascript في نهاية وسم ال body
+					@livewireScripts
+				</pre>
+			</div>
+		</section>
+		<section id="routes">
+			<div class="text-center">
+			<h1 class="title text-center">المسارات</h1>
+				<h4>عند بناء اي تطبيق لابد من كتابة المسارات الخاصة به 
+					ويتم ذلك بداخل الملف <span>routes/Web.php</span>
+				</h4>
+				الأن سوف نبدأ التعرف علي كيفية بناء المسارات 
+				عن طريق بناء أول مكون بأستخدام الأمر
+			 	<PRE>php artisan make:livewire Home</PRE>	
+				<h4>بعد ذلك لنفتح ملف العرض :</h4>
+				<h4>ونضيف الكود التالي</h4>
+				<h1>
+					<pre>
+					&lt;h1>بسم الله الرحمن الرحيم&lt;/h1>&lt;hr>
+					&lt;h1>الصفحة الرئيسية&lt;/h1>
+					</pre>
+				</h1>
+				<h4>
+					: بعد ذلك قم بكتابة المسار التالي 
+				</h4>
+				<pre>
+						Route::get('/home',Home::class);
+						//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+						use App\Http\Livewire\Home;
+				</pre>
+				<h4>الأن لنتعرف علي تضمين ال parameters أو المحددات</h4>
+				<pre>
+					Route::get('/home{name}',Home::class);
+				</pre>
+				<h4>الخطوة الأولي وهي أضافة الخاصية الخاصة بهذا المحدد
+					هكذا 
+				</h4>
+				<pre>public $name;</pre>
+				<h4>الخطوة الثانية وهي انشاء دالة خطاف  </h4>
+				<hr>
+				<h4>الطريقة أو ال method mount </h4>
+				<p>mount : Runs once, immediately after the component is instantiated, but before render() is called. This is only called once on initial page load and never called again, even on component refreshes</p>
+				<br>
+				<p>mount : وحتي مع عمل تحديث للمكون تظل كما هي
+					  يتم تشغيلها أو أستدعائها مرة واحدة فقط 
+					<b>قبل عمل render</b></p> 
+
+				</h4>
+				<pre>
+					//دالة خطاف 
+					// mount lifecycle hook method	
+					public function mount($name)
+					{
+						//هذه تعود علي خاصية داخل الصنف 
+						// $this متغير زائف يتعامل مع خواص الصنف ببساطة
+						$this->name = $name;        
+					}
+				</pre>
+				<h4>الخطوة الثالثة لعرض المتغير في صفحة العرض هكذا 
+					<pre> &lt;h1> اهلا وسهلا : {{$name}}
+						&lt;/h1></pre>
+				</h4>
+
+				<h4>
+					في حالة اردت استخدام المحدد parameter بقيمة فارغة أفتراضية 
+					يتم ذلك بهذه الطريقة 
+					يجب تعديل ملف الصنف هكذا 
+
+				</h4>
+				<pre>				
+					public function mount($name=null)
+					{
+						$this->name = $name;        
+					}
+				</pre>
+
+
+			</div>
+		</section>
+		<section id="Property_binding">
+			<div class="text-center">
+				<h1 class="title text-center">ربط الخواص</h1>
+				<h4>Livewire Property Binding</h4>
+				<h4>الخطوة رقم 1 </h4>
+				<pre>
+					//أنشاء مكون جديد لاستماره
+					php artisan make:livewire Form
+				</pre>
+				<h4>الخطوة رقم 2 </h4>
+				<pre>
+					//أنشاء مسار جديد 
+					Route::get(‘/form’,Form::class);
+				</pre>
+				<h4>الخطوة رقم 3 </h4>
+				<h4>وضع الكود التالي بداخل ملف العرض </h4>
+				<pre>
+					&lt;div dir="rtl" style="text-align: right">
+						{{-- مكون للتعامل مع الاستمارات forms --}}
+						الأسم: &lt;br>
+						&lt;input type="text" wire:model.debounce.1000ms ="name" />&lt;br>
+						الرسالة: &lt;br>
+						&lt;textarea wire:model='message'>&lt;/textarea>&lt;br>
+						&lt;br>
+						الحالة الأجتماعية :
+						أعزب  &lt;input type="radio" value="أعزب"    wire:model='marital_state'>
+						متزوج &lt;input type="radio" value="متزوج"   wire:model='marital_state'>
+						vbr>
+						اللون المفضل: 
+						أحمر &lt;input type="checkbox" value="أحمر" wire:model='colors'>
+						أخضر &lt;input type="checkbox" value="أخضر" wire:model='colors'>
+						أزرق &lt;input type="checkbox" value="أزرق" wire:model='colors'>
+						&lt;br>
+						الفاكهة المضلة :
+						&lt;select wire:model='fruit'>
+						&lt;option value="">أختر فاكهتك المفضلة :&lt;/option>
+						&lt;option value="تفاح">تفاح&lt;/option>
+						&lt;option value="فراولة">فراولة&lt;/option>
+						&lt;option value="مانجا">مانجا&lt;/option>
+						&lt;/select>
+					
+					
+						&lt;h1>يتم عرض نتيجة الفورم هنا &lt;/h1>
+						&lt;hr>
+						الأسم: {{$name}}&lt;br>
+						الرسالة: {{$message}}&lt;br>
+						الحالة الأجتماعية: {{$marital_state}}
+						&lt;br>
+						اللون المفضلة: 
+						&lt;br>
+						&lt;ul>
+							@foreach ($colors as $color)
+								{{$color}}
+							@endforeach
+						&lt;/ul>
+						&lt;br>
+						الفاكهة المفضلة: {{$fruit}}
+					
+					&lt;/div>
+				</pre>
+				<h4>الخطوة رقم 3 </h4>
+				<h4>وضع الكود التالي بداخل  الصنف </h4>
+				<pre>
+					&lt;?php
+						namespace App\Http\Livewire;
+						use Livewire\Component;
+						class Form extends Component
+						{
+							public $name;
+							public $message;
+							public $marital_state;
+							public $colors=[];
+							public $fruit;
+							public function render()
+							{
+								return view('livewire.form');
+							}
+						}
+				</pre>
+
+				<h4>
+				ملاحظة: اذا قمت بعمل تفتيش أو inspection لل network 
+				من خلال أدوات المطور في متصفح جوجل كروم  او اي متصفح تستخدمه 
+				في كروم سوف اضغط علي ctrl+shift+i في لوحة المفاتيح لفتحة 
+				ثم أذهب الي network
+				ثم أقوم بالتالي
+				سوف تلاحظ انه عند كتابة اي شيء باي حقل داخل الاستماره السابقة 
+				يتم أرسال طلب الي السيرفر وهذا خطأ كبير جدا 
+				للتخلص من هذا الخطأ 
+				يجب تعديل حقول الفورم وأضافه الكود التالي 
+				</h4>
+				<pre>
+					&lt;input type="text" wire:model.debounce.1000ms="name"  />
+				</pre>
+				<h4>debounce.1000ms<hr>
+					1000ms it means 1 sec. 1000milli sec = 1 sec
+					<hr>
+					1000 ملي ثانية تساوي ثانية واحدة فقط 
+				</h4> 
+			</div>
+		</section>
+		<section id="actions">
+			<div class="text-center">
+			<h1 class="title text-center">الأفعال</h1>
+					<h4>قم بانشاء مكون جديد</h4>
+					<pre>php artisan make:livewire Action</pre>
+					<h4>
+						: بعد ذلك قم بكتابة المسار التالي 
+					</h4>
+					<pre>
+							Route::get('/action',Action::class);
+							//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+							use App\Http\Livewire\Action;
+					</pre>
+					<h4> بداخل الصنف قم بأنشاء خاصية جديدة ودالة للجمع
+					</h4>
+					<pre>
+						&lt;?php
+
+						namespace App\Http\Livewire;
+
+						use Livewire\Component;
+
+						class Action extends Component
+						{
+							public $sum;
+							public $num1;
+							public $num2;
+							public $message;
+							public function AddTwoNumbers($num1,$num2){
+								$this->sum = $num1 + $num2 ;
+							}
+
+							public function display_message($msg){
+								$this->message = $msg;
+							}
+
+							public function getsum(){
+								$this->sum = $this->num1 + $this->num2;
+							}
+							public function render()
+							{
+								return view('livewire.action');
+							}
+						}
+					</pre>  
+					<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+					</h4>
+					<pre>
+						&lt;div dir="rtl" style="text-align: center">
+							{{-- شرح الأفعال actions --}}
+							&lt;button type="button" wire:click='AddTwoNumbers(32,100)'>
+								جمع 
+								&lt;/button>
+								&lt;br>
+								&lt;textarea  placeholder="رسالتك" wire:keydown.enter='display_message($event.target.value)'>&lt;/textarea>
+								&lt;br>
+								&lt;form wire:submit.prevent='getsum'>
+							رقم 1 :&lt;input type="text" name="num1" wire:model='num1'>
+							رقم 2 :&lt;input type="text" name="num2"  wire:model='num2'>
+							&lt;button type="submit">أدخال&lt;/button>
+							&lt;/form>
+							&lt;h1> المجموع : {{$sum}} &lt;/h1>
+							&lt;br>
+							&lt;h1>الرسالة : {{ $message }}&lt;/h1>
+						&lt;/div>
+					</pre>
+			</div>
+		</section>
+		<section id="Life_Cycle_Hook">
+			<div class="text-center">
+			<h1 class="title text-center">دورة حياة الخطافات</h1>
+			<h4>قم بانشاء مكون جديد</h4>
+			<pre>php artisan make:livewire Product</pre>
+			<h4>
+				: بعد ذلك قم بكتابة المسار التالي 
+			</h4>
+			<pre>
+					Route::get('/product',Product::class);
+					//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+					use App\Http\Livewire\Product;
+			</pre>
+			<h4>
+				. بداخل الصنف قم بكتابة الكود التالي
+			</h4>
+			<pre>
+				&lt;?php
+				namespace App\Http\Livewire;
+
+				use Livewire\Component;
+
+				class Product extends Component
+				{
+					public $name;
+					public $title;
+					public $infos=[];
+
+					public function mount(){
+						$this->infos[] ='Application is mounting.......';
+					}
+
+					public function hydrate(){
+						$this->infos[] ='Application is hydrating.......';
+					}
+					public function updating($name,$value){
+						$this->infos[] ='Application is updating.......';
+					}
+					public function updated($name,$value){
+						$this->infos[] ='Application is updated.......';
+					}
+					public function updatingName(){
+						$this->infos[] ='Application is updating Name Property.......';
+					}
+					public function updatedName(){
+						$this->infos[] ='Application is updated Name Property.......';
+					}
+
+					public function render()
+					{
+						return view('livewire.product');
+					}
+				}
+			</pre>  
+			<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;div>
+					الأسم : &lt;input type="text" wire:model='name'>&lt;br>
+					العنوان : &lt;input type="text" wire:model='title'>&lt;br>
+					&lt;h3>الأسم : {{$name}}&lt;/h3>
+					&lt;br>
+					&lt;h3>العنوان : {{$title}}&lt;/h3>
+					&lt;br>
+					&lt;h3>
+						طرق دورة حياة الخطفات 
+						&lt;/h3>
+					@foreach($infos as $info)
+						&lt;h4>{{$info}}&lt;/h4>
+					@endforeach
+				&lt;/div>
+			</pre>
+			</div>
+		</section>
+		<section id="Form_Validation">
+			<div class="text-center">
+			<h1 class="title text-center">التحقق من الأستمارات</h1>
+			<h4>قم بانشاء مكون جديد</h4>
+			<pre>php artisan make:livewire Contact</pre>
+			<h4>
+				: بعد ذلك قم بكتابة المسار التالي 
+			</h4>
+			<pre>
+				Route::get(‘/contact’,Contact::class);
+				//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+				use App\Http\Livewire\Contact;
+			</pre>
+			<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;?php
+				namespace App\Http\Livewire;
+
+				use Livewire\Component;
+
+				class Contact extends Component
+				{
+					public $name;
+					public $email;
+					public $phone;
+					public $message;
+
+					public function updated($fields){
+						$this->validateOnly($fields,[
+							'name' => 'required',
+							'email' => 'required|email',
+							'phone' => 'required|digits:12',
+							'message' => 'required|min:20',
+						]);
+
+					}
+					public function submitform(){
+						$this->validate([
+							'name' => 'required',
+							'email' => 'required|email',
+							'phone' => 'required|digits:12',
+							'message' => 'required|min:20',
+						]);
+						dd($this->name,$this->email,$this->phone,$this->message);
+					}
+					public function render()
+					{
+						return view('livewire.contact');
+					}
+				}
+			</pre>  
+			<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;div>
+					{{-- رسائل التحقق --}}
+					&lt;section dir="rtl" style="text-align: right">
+						&lt;div class="container">
+							&lt;div class="row">
+								&lt;div class="col-m-6 offset-md-3">
+									&lt;div class="card">
+										&lt;div class="card-header">
+										&lt;h3>نموذج التواصل&lt;/h3>
+										&lt;/div>
+										&lt;div class="card-body">
+													&lt;form wire:submit.prevent='submitform'>
+														@csrf
+															&lt;div class="form-group">
+																&lt;label for="name">الأسم&lt;/label>
+																&lt;input type="text" name="name" class="form-control" wire:model='name'>
+																@error('name') &lt;p class="text-danger">{{$message}}&lt;/p>@enderror
+															&lt;/div>
+															&lt;div class="form-group">
+																&lt;label for="email">البريد الألكتروني&lt;/label>
+																&lt;input type="email" name="email" class="form-control" wire:model='email'>
+																@error('email') &lt;p class="text-danger">{{$message}}&lt;/p>@enderror
+															&lt;/div>
+															&lt;div class="form-group">
+																&lt;label for="phone">رقم الموبايل&lt;/label>
+																&lt;input type="text" name="phone" class="form-control" wire:model='phone'>
+																@error('phone') &lt;p class="text-danger">{{$message}}&lt;/p>@enderror
+															&lt;/div>
+															&lt;div class="form-group">
+																&lt;label for="message">رسالتك&lt;/label>
+																&lt;textarea name="message" class="form-control" wire:model='message'>&lt;/textarea>
+																@error('message') &lt;p class="text-danger">{{$message}}&lt;/p>@enderror
+															&lt;/div>
+															&lt;button type="submit" class="btn btn-success" style="margin-top: 5px;">أرسال&lt;/button>
+													&lt;/form>
+										&lt;/div>
+									&lt;/div>
+								&lt;div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/section>
+				&lt;/div>
+			</pre>
+			</div>
+		</section>
+		<section id="with_database">
+			<div class="text-center">
+			<h1 class="title text-center">مع قواعد البيانات</h1>
+			<h4>قم بانشاء مكون جديد</h4>
+			<pre>php artisan make:livewire Users</pre>
+			<h4>
+				: بعد ذلك قم بكتابة المسار التالي 
+			</h4>
+			<pre>
+					Route::get(‘/users’,Users::class);
+					//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+					use App\Http\Livewire\Users;
+			</pre>
+			<h4>توجة الي  ملف <span>DatabaseSeeder.php</span>  وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;?php
+				namespace Database\Seeders;
+				use Illuminate\Database\Seeder;
+				class DatabaseSeeder extends Seeder
+				{
+					/**
+					* Seed the application's database.
+					*
+					* @return void
+					*/
+					public function run()
+					{
+						\App\Models\User::factory(10)->create();
+					}
+				}
+			</pre>
+			<hr>
+			  <h4>قم بعمل بذر لقاعدة البيانات</h4>
+			  <span><pre>php artisan db:seed</pre></span>
+			<hr>
+			<h4>توجة الي  ملف الصنف وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;?php
+				namespace App\Http\Livewire;
+
+				use App\Models\User;
+				use Livewire\Component;
+
+				class Users extends Component
+				{
+					public $users;
+					public function render()
+					{
+						$this->users = User::all();
+						return view('livewire.user-component', ['users'=> $users] );
+					}
+				}
+			</pre>
+			<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;div>
+					&lt;style>
+						nav svg{
+							max-height:20px;
+						}
+					&lt;/style>
+					{{-- المستخدمين --}}
+					&lt;section dir="rtl" style="text-align: right">
+						&lt;div class="container">
+							&lt;div class="row">
+								&lt;div class="col-m-6 offset-md-3">
+									&lt;div class="card">
+										&lt;div class="card-header">
+											&lt;h3>المستخدمين&lt;/h3>
+										&lt;/div>
+										&lt;div class="card-body">
+										&lt;table class="table table-striped">
+													&lt;thead>
+														&lt;tr>
+															&lt;th>Id&lt;/th>
+															&lt;th>الأسم&lt;/th>
+															&lt;th>البريد الالكتروني&lt;/th>
+														&lt;/tr>
+													&lt;/thead>
+													&lt;tbody>
+														@foreach ($users as $user)
+															&lt;tr>
+																&lt;td>{{$user->id}}&lt;/td>
+																&lt;td>{{$user->name}}&lt;/td>
+																&lt;td>{{$user->email}}&lt;/td>
+															&lt;/tr>
+														@endforeach
+													&lt;/tbody>
+												&lt;/table>            
+										&lt;/div>
+									&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/section>
+				&lt;/div>
+			</pre>
+			</div>
+		</section>
+		<section id="pagination">
+			<h4>توجة الي  ملف الصنف وقم بتعديل الكود كما يلي 
+			</h4>
+			<pre>
+				&lt;?php
+				namespace App\Http\Livewire;
+
+				use App\Models\User;
+				use Livewire\Component;
+				use Livewire\WithPagination;
+				class Users extends Component
+				{
+					use WithPagination;
+					public $users;
+					public function render()
+					{
+						$this->users = User::paginate(12);
+						return view('livewire.user-component',['users' => $users]);
+					}
+				}
+			</pre>
+			<h4>توجة الي  ملف العرض وقم بتعديل الكود كما يلي 
+			</h4>
+			<pre>
+				&lt;div>
+					&lt;style>
+						nav svg{
+							max-height:20px;
+						}
+					&lt;/style>
+					{{-- المستخدمين --}}
+					&lt;section dir="rtl" style="text-align: right">
+						&lt;div class="container">
+							&lt;div class="row">
+								&lt;div class="col-m-6 offset-md-3">
+									&lt;div class="card">
+										&lt;div class="card-header">
+											&lt;h3>المستخدمين&lt;/h3>
+										&lt;/div>
+										&lt;div class="card-body">
+										&lt;table class="table table-striped">
+													&lt;thead>
+														&lt;tr>
+															&lt;th>Id&lt;/th>
+															&lt;th>الأسم&lt;/th>
+															&lt;th>البريد الالكتروني&lt;/th>
+														&lt;/tr>
+													&lt;/thead>
+													&lt;tbody>
+														@foreach ($users as $user)
+															&lt;tr>
+																&lt;td>{{$user->id}}&lt;/td>
+																&lt;td>{{$user->name}}&lt;/td>
+																&lt;td>{{$user->email}}&lt;/td>
+															&lt;/tr>
+														@endforeach
+													&lt;/tbody>
+												&lt;/table>
+											{{ $users->links() }}                
+										&lt;/div>
+									&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/section>
+				&lt;/div>
+			</pre>
+		</section>
+
+		<section id="CRUD">
+			<div class="text-center">
+				<h1 class="title text-center">CRUD</h1>
+				<h4>CRUD ترمز الي عمليات أنشاء وعرض  تحديث أو تعديل وحذف </h4>
+				<hr>
+				<h4>قم بأنشاء نموذج  و ملف تهجير جديد </h4>
+				<pre>php artisan make:model Student –m</pre>
+				<hr>
+				بعد ذلك قم بأضافة الكود التالي 
+				<pre>
+					&lt;?php
+						use Illuminate\Database\Migrations\Migration;
+						use Illuminate\Database\Schema\Blueprint;
+						use Illuminate\Support\Facades\Schema;
+
+						class CreateStudentsTable extends Migration
+						{
+							/**
+							* Run the migrations.
+							*
+							* @return void
+							*/
+							public function up()
+							{
+								Schema::create('students', function (Blueprint $table) {
+									$table->id();
+									$table->string('firstname');
+									$table->string('lastname');
+									$table->string('email');
+									$table->string('phone');
+									$table->timestamps();
+								});
+							}
+
+							/**
+							* Reverse the migrations.
+							*
+							* @return void
+							*/
+							public function down()
+							{
+								Schema::dropIfExists('students');
+							}
+						}
+				</pre>
+				<hr>
+				<h4>قم بعمل  تهجير لقاعدة البيانات من خلال الأمر</h4>
+				<pre>
+					php artisan migrate 
+				</pre>
+				<hr>
+				<h4>
+					قم بأنشاء مصنع بيانات جديد
+				</h4>
+				<pre>
+					php artisan make:factory Student
+				</pre>
+				<hr>
+				<pre>
+					&lt;?php
+					namespace Database\Factories;
+
+					use App\Models\Student;
+					use Illuminate\Database\Eloquent\Factories\Factory;
+
+					class StudentFactory extends Factory
+					{
+						/**
+						* The name of the factory's corresponding model.
+						*
+						* @var string
+						*/
+						protected $model = Student::class;
+
+						/**
+						* Define the model's default state.
+						*
+						* @return array
+						*/
+						public function definition()
+						{
+							return [
+								'firstname' => $this->faker->firstName,
+								'lastname' => $this->faker->lastName,
+								'email' => $this->faker->email,
+								'phone' => $this->faker->phoneNumber
+							];
+						}
+					}
+				</pre>
+				<h4>قم بانشاء مكون جديد</h4>
+				<pre>php artisan make:livewire Students</pre>
+				<h4>
+					: بعد ذلك قم بكتابة المسار التالي 
+				</h4>
+				<pre>
+						Route::get(‘/students’,Students::class);
+						//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+						use App\Http\Livewire\Students;
+				</pre>
+				<hr>
+				<h4>قم بأنشاء مصنع بيانات جديد  للنموذج Student</h4>
+				<h4>توجة الي  ملف <span>DatabaseSeeder.php</span>  وقم باضافة الكود التالي 
+				</h4>
+				<pre>
+					&lt;?php
+					namespace Database\Seeders;
+					use Illuminate\Database\Seeder;
+					class DatabaseSeeder extends Seeder
+					{
+						/**
+						* Seed the application's database.
+						*
+						* @return void
+						*/
+						public function run()
+						{
+							\App\Models\User::factory(10)->create();
+							\App\Models\Student::factory(10)->create();
+						}
+					}
+				</pre>
+				<hr>
+				  <h4>قم بعمل بذر لقاعدة البيانات</h4>
+				  <span><pre>php artisan db:seed</pre></span>
+				<hr>
+				<h4>توجة الي  ملف الصنف وقم باضافة الكود التالي 
+				</h4>
+				<pre>
+					&lt;?php
+					namespace App\Http\Livewire;
+
+					use App\Models\Student;
+					use Livewire\Component;
+					use Livewire\WithPagination;
+
+					class Students extends Component
+					{
+						use WithPagination;
+						public $firstname;
+						public $lastname;
+						public $email;
+						public $phone;
+						public $sid;
+						public $searchTerm;
+
+
+						public function resetInputFields()
+						{
+							$this->firstname = '';
+							$this->lastname = '';
+							$this->email = '';
+							$this->phone = '';        
+						}
+
+						public function store()
+						{
+							$validatedData = $this->validate([
+								'firstname' => 'required',
+								'lastname' => 'required',
+								'email' => 'required|email',
+								'phone' => 'required'
+							]);
+
+							Student::create($validatedData);
+							session()->flash('message','تم أنشاء التلميذ بنجاح !');
+							$this->resetInputFields();
+							$this->emit('studentAdded');
+						}
+					
+							public function edit($id)
+						{
+							$this->updateMode = true;
+							$student = Student::find($id);
+							$this->firstname = $student->firstname;
+							$this->lastname = $student->lastname;
+							$this->email = $student->email;
+							$this->phone = $student->phone;   
+							$this->sid = $student->id;     
+						}
+
+						public function update()
+						{
+							$this->validate([
+								'firstname' => 'required',
+								'lastname' => 'required',
+								'email' => 'required|email',
+								'phone' => 'required'
+							]);
+							if($this->sid){
+								$student = Student::find($this->sid);
+								$student->update([
+									'firstname' => $this->firstname,
+									'lastname' => $this->lastname,
+									'email' => $this->email,
+									'phone' => $this->phone
+								]);
+								$this->updateMode = false;
+								session()->flash('message','تم تحديث بيانات التلميذ بنجاح !');
+								$this->resetInputFields();
+								$this->emit('studentUpdated');
+							}
+						}
+
+						public function delete($id)
+						{
+							if($id)
+							{
+								Student::find($id)->delete();
+								session()->flash('message','تم حذف التلميذ بنجاح !');
+							}
+						}
+						public function render()
+						{
+							$search = '%' . $this->searchTerm. '%';
+							$students  = Student::where('firstname','LIKE',$search)
+										->orWhere('lastname','LIKE',$search)
+										->orWhere('email','LIKE',$search)
+										->orWhere('phone','LIKE',$search)
+										->orderBy('id','DESC')->paginate(12);        
+							return view('livewire.students',['students'=>$students]);
+						}
+					}
+				</pre>
+				<hr>
+				<h4>يجب أضافة الكود التالي بداخل ملف العرض الرئيسي layouts.app</h4>
+				<h4>والذي يتضمن cdn bootstrap و سكربت جافا للتعامل مع bootstrap modal  </h4>
+				<pre>	
+				&lt;!DOCTYPE html>
+				&lt;html lang="en">
+				&lt;head>
+					&lt;meta charset="UTF-8">
+					&lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+					&lt;meta http-equiv="X-UA-Compatible" content="ie=edge">
+					&lt;title>Livewire Project&lt;/title>
+					&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+					&lt;script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">&lt;/script>
+					&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">&lt;/script>
+					@livewireStyles
+				&lt;/head>
+				&lt;body>
+					{{$slot}}
+					@livewireScripts
+					&lt;script type="text/javascript">
+						window.livewire.on('studentAdded',()=>{
+							$('#addStudentModal').modal('hide');
+						});
+
+						window.livewire.on('studentUpdated',()=>{
+							$('#updateStudentModal').modal('hide');
+						});
+					&lt;/script>
+				&lt;/body>
+				&lt;/html>
+				</pre>
+				<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+				</h4>
+				<pre>
+					&lt;div dir="rtl" style="text-align: right;">
+						&lt;style>
+							nav svg{
+								max-height:20px;
+							}
+						&lt;/style>
+						&lt;section>
+							&lt;div class="container">
+								&lt;div class="row">
+									&lt;div class="col-md-12">
+										&lt;div class="card">
+											&lt;div class="card-header">                       
+												&lt;div class="row" style="margin-top:10px;">
+													&lt;div class="col-md-2 pull-right" style="margin-top: 5px;">
+													   كل التلاميذ
+													&lt;/div>
+													&lt;div class="col-md-2 " style="margin-top: 5px;">
+														&lt;button type="button" class="btn btn-primary " data-toggle="modal" data-target="#addStudentModal">أضافة تلميذ جديد&lt;/button>
+														
+													&lt;/div>
+													&lt;div class="col-md-2">
+														&lt;div class="form-outline">
+															&lt;input type="search" id="form1" class="form-control" wire:model='searchTerm' placeholder="بحث ..." />
+														&lt;/div>
+														
+													&lt;/div>
+												&lt;/div>                      
+											&lt;/div>
+											&lt;div class="card-body">
+												@if(Session::has('message'))
+													&lt;div class="alert alert-success" role="alert">{{Session::get('message')}}&lt;/div>
+												@endif
+												&lt;table class="table table-striped">
+													&lt;thead>
+														&lt;tr>
+															&lt;td>الأسم الأول&lt;/td>
+															&lt;td>الأسم الأخير&lt;/td>
+															&lt;td>البريد الألكتروني&lt;/td>
+															&lt;td>الموبايل&lt;/td>
+															&lt;td>أجراء&lt;/td>
+														&lt;/tr>
+													&lt;/thead>
+													&lt;tbody>
+														@foreach($students as $student)
+															&lt;tr>
+																	&lt;td>{{$student->firstname}}&lt;/td>
+																	&lt;td>{{$student->lastname}}&lt;/td>
+																	&lt;td>{{$student->email}}&lt;/td>
+																	&lt;td>{{$student->phone}}&lt;/td>
+																	&lt;td>
+																		&lt;button wire:click="edit({{$student->id}})" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#updateStudentModal">تعديل&lt;/button>
+																		&lt;button wire:click="delete({{$student->id}})" class="btn btn-danger btn-sm">حذف&lt;/button>
+																	&lt;/td>
+															&lt;/tr>
+														@endforeach
+													&lt;/tbody>
+												&lt;/table>
+												{{$students->links()}}
+											&lt;/div>
+											&lt;div wire:ignore.self class="modal fade" id="updateStudentModal" tabindex="-1" role="dialog" aria-hidden="true">
+												&lt;div class="modal-dialog" role="document">
+													&lt;div class="modal-content">
+														&lt;div class="modal-header">
+															&lt;div class="modal-title">
+															   تحديث تلميذ
+															&lt;/div>
+															&lt;button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																&lt;span aria-hidden="true close-btn">x&lt;/span> 
+															&lt;/button>
+														&lt;/div>
+														&lt;div class="modal-body">
+															&lt;form >
+																@csrf                    
+																&lt;div class="form-group">
+																	&lt;label for="firstname">الأسم الأول&lt;/label>
+																	&lt;input type="text" name="firstname" class="form-control" wire:model="firstname" />
+																	@error('firstname') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="lastname">الأسم الأخير &lt;/label>
+																	&lt;input type="text" name="lastname" class="form-control" wire:model="lastname" />
+																	@error('lastname') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="email">البريد الألكتروني&lt;/label>
+																	&lt;input type="text" name="email" class="form-control" wire:model="email" />
+																	@error('email') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="phone">رقم الموبايل</label>
+																	&lt;input type="text" name="phone" class="form-control" wire:model="phone" />
+																	@error('phone') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>                    
+															&lt;/form>
+														&lt;/div>
+														&lt;div class="modal-footer">
+															&lt;button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">أغلاق&lt;/button>
+															&lt;button type="button" wire:click.prevent="update()" class="btn btn-primary">حفظ التعديلات&lt;/button>
+														&lt;/div>
+													&lt;/div>
+												&lt;/div>
+											&lt;/div>
+											
+											&lt;div wire:ignore.self class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-hidden="true">
+												&lt;div class="modal-dialog" role="document">
+													&lt;div class="modal-content">
+														&lt;div class="modal-header">
+															&lt;div class="modal-title">
+																أضافة تلميذ جديد
+															&lt;/div>
+															&lt;button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																&lt;span aria-hidden="true close-btn">x&lt;/span> 
+															&lt;/button>
+														&lt;/div>
+														&lt;div class="modal-body">
+															&lt;form >
+																&lt;div class="form-group">
+																	&lt;label for="firstname">الأسم الأول&lt;/label>
+																	&lt;input type="text" name="firstname" class="form-control" wire:model="firstname" />
+																	@error('firstname') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="lastname">الأسم الأخير&lt;/label>
+																	&lt;input type="text" name="lastname" class="form-control" wire:model="lastname" />
+																	@error('lastname') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="email">البريد الألكتروني&lt;/label>
+																	&lt;input type="text" name="email" class="form-control" wire:model="email" />
+																	@error('email') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>
+											
+																&lt;div class="form-group">
+																	&lt;label for="phone">الموبايل</label>
+																	&lt;input type="text" name="phone" class="form-control" wire:model="phone" />
+																	@error('phone') &lt;span class="text-danger error">{{$message}}&lt;/span> @enderror
+																&lt;/div>                    
+															&lt;/form>
+														&lt;/div>
+														&lt;div class="modal-footer">
+															&lt;button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">أغلاق&lt;/button>
+															&lt;button type="button" wire:click.prevent="store()" class="btn btn-primary">حفظ التعديلات&lt;/button>
+														&lt;/div>
+													&lt;/div>
+												&lt;/div>
+											&lt;/div>
+										&lt;/div>
+									&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/section>
+					&lt;/div>
+				</pre>
+				</div>
+		</section>
+
+		<section id="search">
+			<h1 class="title text-center">شرح كيف يعمل البحث</h1>
+			<h4>بداخل المكون السابق لعمليات CRUD</h4>
+			<h4>يتم تنفيذ البحث في خطوتين الأولي بداخل الصنف</h4>
+			<pre>
+				public function render()
+						{
+							$search = '%' . $this->searchTerm. '%';
+							$students  = Student::where('firstname','LIKE',$search)
+										->orWhere('lastname','LIKE',$search)
+										->orWhere('email','LIKE',$search)
+										->orWhere('phone','LIKE',$search)
+										->orderBy('id','DESC')->paginate(12);        
+							return view('livewire.students',['students'=>$students]);
+						}
+			</pre>
+			<h4>
+				 الثانية بداخل ملف العرض 
+				 سوف تجد الكود هكذا 
+			</h4>
+			<pre>
+				&lt;div class="col-md-2">
+					&lt;div class="form-outline">
+							// عمل Property_binding 
+							//للبحث بداخل الفورم
+							&lt;input type="search" id="form1" class="form-control" wire:model='searchTerm' placeholder="بحث ..." />
+					&lt;/div>
+				&lt;/div>
+			</pre>
+		</section>
+
+		<section id="file_upload">
+			<div class="text-center">
+			<h1 class="title text-center">رفع ملف</h1>
+				<h4>الخطوة رقم 1 </h4>
+				<pre>
+					//  قم بانشاء ملف تهجير ونموذج جديد من خلال هذا الأمر
+					php artisan make:model Upload -m
+					// هذا هو كود ومحتوي الجدول 
+					&lt;?php
+					use Illuminate\Database\Migrations\Migration;
+					use Illuminate\Database\Schema\Blueprint;
+					use Illuminate\Support\Facades\Schema;
+
+					class CreateUploadsTable extends Migration
+					{
+						/**
+						* Run the migrations.
+						*
+						* @return void
+						*/
+						public function up()
+						{
+							Schema::create('uploads', function (Blueprint $table) {
+								//المعرف 
+								$table->id();
+								//عنوان الملف المرفوع
+								$table->string('title');
+								//أسم الملف المرفوع
+								$table->string('filename');
+								// الطابع أو الختم الزمني للجدول      
+								$table->timestamps();           
+							});
+						}
+
+						/**
+						* Reverse the migrations.
+						*
+						* @return void
+						*/
+						public function down()
+						{
+							Schema::dropIfExists('uploads');
+						}
+					}
+					// بعد ذلك توجة الي النموذج وقم بأضافة الكود التالي بداخلة
+					&lt;?php
+
+					namespace App\Models;
+
+					use Illuminate\Database\Eloquent\Factories\HasFactory;
+					use Illuminate\Database\Eloquent\Model;
+
+					class Upload extends Model
+					{
+						use HasFactory;
+						//[ protected: يمكن الوصول الي الخاصية أو الطريقة داخل الصنف أو الصنف الذي يرثه ] هي نوع من أنواع الحماية 
+						protected $fillable = ['title','filename'];
+					}
+				</pre>
+				<h4>الخطوة رقم 2 </h4>
+				<pre>
+					//لتهجير قاعدة البيانات أستخدم هذه الأمر
+					php artisan migrate
+					// بعد ذلك قم بأنشاء مكون جديد  بالأسم uploads
+					php artisan make:livewire Uploads
+					//قم بأنشاء مسار جديد بداخل ملف المسارات الموجود في routes/web.php
+					Route::get(‘/upload’,Uploads::class);
+					// لا تنسي أستيراد الأسم جيدا
+					use App\Http\Livewire\Uploads;
+					
+				</pre>
+				<h4>الخطوة رقم 3 </h4>
+				<pre>
+					&lt;?php
+					namespace App\Http\Livewire;
+					use App\Models\Upload;
+					use Livewire\Component;
+					use Livewire\WithFileUploads;
+					class Uploads extends Component
+					{
+						use WithFileUploads;
+						public $title;
+						public $filename;   
+
+						public function updated($fields)
+						{
+							$this->validateOnly($fields,[
+								'title' => 'required',
+								'filename' => 'required'        
+							]);
+						}
+						public function fileUpload()
+						{
+							$validatedData = $this->validate([
+								'title' => 'required',
+								'filename' => 'required'
+							]);
+							
+							$filename = $this->filename->store('files','public');
+							$validatedData['filename'] = $filename;
+							Upload::create($validatedData);
+							session()->flash('message','File successfully uploaded');
+							$this->emit('fileUploaded');        
+						}
+					}
+
+				</pre>
+				<h4>الخطوة رقم 4 </h4>
+				<pre>
+					&lt;div>
+						&lt;section>
+							&lt;div class="container">
+								&lt;div class="row">
+									&lt;div class="col-md-6 offset-md-3">
+										@if(Session::has('message'))
+											&lt;div class="alert alert-success" role="alert">{{Session::get('message')}}&lt;/div>
+										@endif
+										&lt;div class="card">
+												&lt;div class="card-header">
+													File Upload
+													&lt;/div>
+														&lt;div class="card-body">
+															&lt;form id="form-upload" wire:submit.prevent="fileUpload" enctype="multipart/form-data">
+																	&lt;div class="form-group">
+																		&lt;lable for="title">Ttile&lt;/lable>
+																		&lt;input type="text" name="title" class="form-control" wire:model="title" />
+																		@error('title') &lt;p class="text-danger">{{$message}}&lt;/p> @enderror
+																	&lt;/div>
+						
+																	&lt;div class="form-group">
+																		&lt;lable for="filename">File&lt;/lable>
+																		&lt;input type="file" name="filename" class="form-control" wire:model="filename" />
+																		@error('filename') &lt;p class="text-danger">{{$message}}</p> @enderror
+																	&lt;/div>
+					
+																&lt;button type="submit" class="btn btn-success">Upload&lt;/button>
+															&lt;/form>
+														&lt;/div>
+													&lt;/div>
+												&lt;/div>
+										&lt;/div>
+									&lt;/div>
+								&lt;div>
+							&lt;/div>
+						&lt;/section>
+					&lt;/div>
+					//توجة الي مجلد LAYOUTS app.blade.php وقم بأضافة الكود التالي 
+					&lt;script>
+						window.livewire.on('fileUploaded',()=>{
+								$('#form-upload')[0].reset();
+							});
+					&lt;/script>
+				</pre>
+			</div>
+		</section>
+		<section id="images_upload">
+			<div class="text-center">
+			<h1 class="title text-center">رفع الصور</h1>
+			<h4>قم بأنشاء ملف تهجير ونموذج</h4>
+			<pre>php artisan make:model Image –m</pre>
+			<h4>بداخلة سوف يكون هناك الكود التالي </h4>
+			<pre>
+				&lt;?php
+				use Illuminate\Database\Migrations\Migration;
+				use Illuminate\Database\Schema\Blueprint;
+				use Illuminate\Support\Facades\Schema;
+				
+				class CreateImagesTable extends Migration
+				{
+					/**
+					 * Run the migrations.
+					 *
+					 * @return void
+					 */
+					public function up()
+					{
+						Schema::create('images', function (Blueprint $table) {
+							$table->id();            
+							$table->string('filename');      
+							$table->timestamps();           
+						});
+					}
+				
+					/**
+					 * Reverse the migrations.
+					 *
+					 * @return void
+					 */
+					public function down()
+					{
+						Schema::dropIfExists('images');
+					}
+				}
+			</pre>
+			<h4>توجة الي النموذج وقم باضافه الكود التالي 
+				لجعل الحقل قابل للملئ fillable
+			</h4>
+			<pre>
+				protected $fillable = ['filename'];
+			</pre>
+			<h4>للتعرف علي معدلات الوصول من خلال هذا 
+			 <a href="https://mahmoudsamyhosein.github.io/PHP-OOP/#Access%20Modifiers">الرابط</a>	
+			</h4>
+			<h4>لتهجير قاعدة البيانات من خلال الأمر التالي </h4>
+			<pre>
+				php artisan migrate
+			</pre>
+			<h4>
+				: بعد ذلك قم بكتابة المسار التالي 
+			</h4>
+			<h4>قم بانشاء مكون جديد</h4>
+			<pre>php artisan make:livewire Images</pre>
+			<h4>
+				: بعد ذلك قم بكتابة المسار التالي 
+			</h4>
+			<pre>
+					Route::get(‘/upload-images’,Images::class);
+					//نأكد من تضمين أسم أو أستخدام أسم المسار جيدا هكذا 
+					use App\Http\Livewire\Images;
+			</pre>
+			<h4>توجة الي  ملف  الصنف وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;?php
+				namespace App\Http\Livewire;
+
+				use App\Models\Image;
+				use Livewire\Component;
+				use Livewire\WithFileUploads;
+
+
+				class Images extends Component
+				{
+					use WithFileUploads;
+					public $images = [];
+					public function uploadimages(){
+						foreach($this->images as $key=>$image){
+							$this->images[$key] = $image->store('images','public');
+						}
+						$this->images = json_encode($this->images);
+						Image::create(['file_name'=>$this->images]);
+						session()->flash('message','! تم رفع الصور بنجاح');
+						$this->emit('imagesuploaded');
+					}
+
+					public function render()
+					{
+						return view('livewire.images');
+					}
+				}
+			</pre>  
+			<h4>توجة الي  ملف العرض وقم باضافة الكود التالي 
+			</h4>
+			<pre>
+				&lt;div>
+					{{--  رفع الصور --}}
+					&lt;section dir="rtl" style="text-align: right">
+						&lt;div class="container">
+							&lt;div class="row">
+							    &lt;div class="col-m-6 offset-md-3">
+								    &lt;div class="card">
+										&lt;div class="card-header">
+											&lt;h3>رفع الصور&lt;/h3>
+										&lt;/div>
+											@if(Session()->has('message'))
+											&lt;div class="alert alert-success">{{ Session('message') }}&lt;/div>
+											@endif
+											&lt;div class="card-body">
+												&lt;form wire:submit.prevent='uploadimages' id="imagesuploaded" enctype="multipart/form-data">
+														@csrf
+														&lt;div class="form-group">
+															&lt;label for="images">أختيار الصور&lt;/label>
+															&lt;input type="file" name="images" class="form-control" wire:model='images' multiple >
+																@error('images')
+																&lt;p class="text-danger">{{$message}}&lt;/p>   
+																@enderror
+															&lt;/div>
+														&lt;button type="submit" class="btn btn-success" style="margin-top: 5px;">أرسال&lt;/button>
+												&lt;/form>
+											&lt;/div>
+									&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/section>
+				&lt;/div>
+			</pre>
+			</div>
+		</section>
+		<section id="download_project">
+			<div class="text-center">
+			<h1 class="title text-center">تحميل المشروع</h1>
+				<a style="text-decoration: none;" href="https://github.com/mahmoudsamyhosein/livewire_training"><h1>مستودع المشروع</h1></a>
+			</div>
+		</section>
+		<script src="doc/assets/js/jquery.js"></script>
+		<script src="doc/assets/js/jquery.scrollTo.js"></script>
+		<script src="doc/assets/js/jquery.easing.js"></script>
+		<script src="doc/assets/js/script.js"></script>
+</body>
+</html>
